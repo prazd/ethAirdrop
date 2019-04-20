@@ -1,15 +1,16 @@
 package eth
 
 import (
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/ethereum/go-ethereum/crypto"
+	"context"
 	"crypto/ecdsa"
+	"log"
 	"math/big"
+	"os"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
-	"log"
-	"context"
-	"os"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 func SendEth(address string) (string, error) {
@@ -34,8 +35,8 @@ func SendEth(address string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	value := big.NewInt(10000000000000000) // in wei (0.01 eth)
-	gasLimit := uint64(21000) // in units
+	value := big.NewInt(500000000000000000) // in wei (0.5 eth)
+	gasLimit := uint64(21000)               // in units
 	gasPrice, err := client.SuggestGasPrice(context.Background())
 	if err != nil {
 		return "", err
