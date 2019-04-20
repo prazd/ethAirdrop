@@ -1,19 +1,21 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/gin-gonic/gin"
 	"github.com/prazd/ethAirdrop/server/handlers"
-	"os"
-	"log"
 )
 
-func main(){
+func main() {
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.Use(gin.Logger())
 
+	airdrop := r.Group("/airdrop")
 
-	r.GET("/send/:address", handlers.Airdrop)
+	airdrop.GET("/send/:address", handlers.Airdrop)
 
 	if err := r.Run(":3000"); err != nil {
 		log.Println(err)
